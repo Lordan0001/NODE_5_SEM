@@ -8,19 +8,20 @@
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             color: whitesmoke;
         }
-        .arr{
+
+        .arr {
             text-align: center;
         }
-        .Bday{
+
+        .Bday {
             color: red;
         }
-      
     </style>
 </head>
 
 
 <body>
-    <div  >
+    <div>
         <div class="arr">
             <div id="select_result"></div>
             <button onclick="Get()">GET</button>
@@ -38,9 +39,8 @@
             </div>
             <div class="row">
                 <p>BDay (use calendar)</p>
-              
-                <input id="Bday" type="date" placeholder="use calendar" max="2022-10-18" min="1950-10-18"
-                >
+
+                <input id="Bday" type="date" placeholder="use calendar" max="2022-10-18" min="1950-10-18">
             </div>
             <button onclick="Post()">POST</button>
         </div>
@@ -91,7 +91,12 @@
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify({ id: ID.value, name: Name.value, bday: Bday.value })
-                }).then(response => { return response.json(); });
+                }).then(async response => {
+                    if (response.status != 200) {
+                        alert(await response.text());
+                    }
+                    //return response.json(); 
+                });
             }
         }
 
@@ -103,7 +108,12 @@
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify({ id: ID_put.value, name: Name_put.value, bday: Bday_put.value })
-                }).then(response => { return response.json(); })
+                }).then(async response => {
+                    if (response.status != 200) {
+                        alert(await response.text());
+                    }
+                    //return response.json(); 
+                });
             }
         }
 

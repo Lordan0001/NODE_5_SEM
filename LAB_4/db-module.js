@@ -76,7 +76,12 @@ function DB() {
 
     this.delete = (id) => {
         console.log("[DELETE]\n");
+        
         var index = db.findIndex(elem => elem.id === parseInt(id));
+  
+        if(index == -1){
+            return JSON.stringify(-1);
+        }
         var deleted = db[index];
         db.splice(index, 1);
         return JSON.stringify(deleted, null, 2);

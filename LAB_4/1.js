@@ -17,6 +17,13 @@ db.on('GET', (req, res) => {
 db.on('POST', (req, res) => {
     console.log('POST called');
     req.on('data', data => {
+        if(new Date(JSON.parse(data).bday) > new Date())
+        {
+            res.writeHead(400);
+            res.end("Wrong date");
+            return;
+        }
+
         res.end(db.insert(data));
     })
 });
@@ -25,6 +32,12 @@ db.on('POST', (req, res) => {
 db.on('PUT', (req, res) => {
     console.log('PUT called');
     req.on('data', data => {
+        if(new Date(JSON.parse(data).bday) > new Date())
+        {
+            res.writeHead(400);
+            res.end("Wrong date");
+            return;
+        }
         res.end(db.update(data));
     })
 });
@@ -36,7 +49,7 @@ db.on('DELETE', (req, res) => {
     {
         console.log("id is not undefined");
         var id = parseInt(url.parse(req.url, true).query.id);
-        console.log("id = " + id);
+        console.log(`id = ${id}`);
         if (Number.isInteger(id))
             res.end(db.delete(id));
         else 
