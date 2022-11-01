@@ -1,0 +1,172 @@
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <style type="text/css">
+            * {
+                background-color: #2f2f2f;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                color: whitesmoke;
+            }
+    
+            .arr {
+                text-align: center;
+            }
+    
+            .Bday {
+                color: red;
+            }
+        </style>
+    </head>
+    
+
+
+<body>
+    <div>
+        <div class="arr">
+            <div id="select_result"></div>
+            <button onclick="Get()">GET</button>
+        </div>
+
+
+        <div id="insert_div" class="container">
+            <div class="row">
+                <p>ID</p>
+                <input id="ID" type="number" min="0">
+            </div>
+            <div class="row">
+                <p>Name</p>
+                <input id="Name" type="text">
+            </div>
+            <div class="row">
+                <p>BDay</p>
+                <input id="Bday" type="text" placeholder="DD-MM-YYYY">
+            </div>
+            <button onclick="Post()">POST</button>
+        </div>
+
+
+        <div id="update_div" class="container">
+            <div class="row">
+                <p>ID</p>
+                <input id="ID_put" type="number" min="0" placeholder="Enter ID to update">
+            </div>
+            <div class="row">
+                <p>Name</p>
+                <input id="Name_put" type="text" placeholder="Enter new name">
+            </div>
+            <div class="row">
+                <p>BDay</p>
+                <input id="Bday_put" type="text" placeholder="DD-MM-YYYY">
+            </div>
+            <button onclick="Put()">PUT</button>
+        </div>
+
+
+        <div id="delete_div" class="container">
+            <div class="row">
+                <p>Enter ID to delete</p>
+                <input id="ID_del" type="number" min="0">
+            </div>
+            <button onclick="Delete()">DELETE</button>
+        </div>
+
+        <div id="stats_div" class="arr">
+            <button onclick="Stats()">STATS</button>
+            <div id="stats_result"></div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        function Get() {
+            fetch('http://localhost:5000/api/db', {
+                method: 'GET', mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+            }).then(response => { return response.json(); })
+                .then((data) => { appendData(data); })
+        }
+
+
+
+        function Post() {
+            if (ID.value != "" && Name.value != "" && Bday.value != "") {
+                fetch('http://localhost:5000/api/db', {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({ id: ID.value, name: Name.value, bday: Bday.value })
+                }).then(async response => {
+                    if (response.status != 200) {
+                        alert(await response.text());
+                    }
+                    //return response.json(); 
+                });
+            }
+        }
+
+
+        function Put() {
+            if (ID_put.value != "" && Name_put.value != "" && Bday_put.value != "") {
+                fetch('http://localhost:5000/api/db', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({ id: ID_put.value, name: Name_put.value, bday: Bday_put.value })
+                }).then(async response => {
+                    if (response.status != 200) {
+                        alert(await response.text());
+                    }
+                    //return response.json(); 
+                });
+            }
+        }
+
+
+
+        function Delete() {
+            if (ID_del.value != "") {
+                fetch('http://localhost:5000/api/db?id=' + ID_del.value, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+                }).then(response => { return response.json(); })
+            }
+        }
+
+
+
+        function Stats() {
+            fetch('http://localhost:5000/api/ss', {
+                method: 'GET',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+            }).then(response => { return response.json(); })
+                .then((data) => { appendStats(data); })
+        }
+
+
+
+
+
+        function appendData(data) {
+            var mainContainer = document.getElementById("select_result");
+            mainContainer.innerHTML = "";
+            for (var i = 0; i < data.length; i++) {
+                var div = document.createElement("div");
+                div.innerHTML = data[i].id + '. Name: ' + data[i].name + '; Bday: ' + data[i].bday;
+                mainContainer.appendChild(div);
+            }
+        }
+
+
+        function appendStats(data) {
+            var mainContainer = document.getElementById("stats_result");
+            mainContainer.innerHTML = "Start time: " + data.start + "</br>Finish time: "
+                + data.finish + "</br>Requests: " + data.requests + "</br>Commits: " + data.commits;
+        }
+    </script>
+
+
+</body>
+
+</html>
