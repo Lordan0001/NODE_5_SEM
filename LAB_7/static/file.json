@@ -1,0 +1,30 @@
+{
+    "id": 1,
+    "name": "Sweet Dreams",
+    "text": [
+        {
+            "name": "Sweet dreams are made of this"
+        },
+        {
+            "name": "Who am I to disagree?"
+        },
+        {
+            "name": "Travel the world and the seven seas"
+        },
+        {
+            "name": "Everybody's looking for something"
+        },
+        {
+            "name": "Some of them want to use you"
+        },
+        {
+            "name": "Some of them want to get used by you"
+        },
+        {
+            "name": "Some of them want to abuse you"
+        },
+        {
+            "name": "Some of them want to be abused"
+        }
+    ]
+}

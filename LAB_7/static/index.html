@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="file.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="file.js"></script>
+</head>
+
+
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div id="wordTitle">Word document: </div>
+            <a href="file.docx">Download</a>
+
+            <div id="titleJS">JS script:</div>
+            <button onclick="functionHello()" id="butt">Run</button>
+        </div>
+
+
+        <div class="row">
+            <div class="column">
+                <div class="title">PNG picture:</div>
+                <img src="file.png" width="450">
+            </div>
+
+            <div class="column" id="videoDiv">
+                <div class="title">MP4 video:</div>
+                <video src="file.mp4" width="600" controls></video>
+            </div>
+        </div>
+
+
+        <div class="column">
+            <div class="title" id="titleXML">XML file:</div>
+            <div id="xmlInput"></div>
+        </div>
+
+
+        <div class="column">
+            <div class="title" id="titleJSON">JSON file:</div>
+            <div id="jsonInput"></div>
+        </div>
+    </div>
+
+
+    <script>
+        window.onload = function () {
+            fetch("http://localhost:5000/file.json", { method: "GET" })
+                .then(response => response.json())
+                .then(data => { document.getElementById("jsonInput").innerHTML = JSON.stringify(data, null, 2); });
+
+            fetch("http://localhost:5000/file.xml", { method: "GET" })
+                .then(response => response.text())
+                .then(data => { document.getElementById("xmlInput").innerHTML = data; });
+        }
+    </script>
+</body>
+
+</html>

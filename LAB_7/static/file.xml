@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bands>
+    <person>
+        <name>Marilyn Manson</name>
+        <album>We Are Chaos</album>
+        <song>Red Black and Blue</song>
+    </person>
+    <person>
+        <name>Rob Zombie</name>
+        <album>The Lunar Injection Kool Aid Eclipse Conspiracy</album>
+        <song>Shadow of the Cemetery Man</song>
+    </person>
+    <person>
+        <name>Ozzy Osbourne</name>
+        <album>Patient Number 9</album>
+        <song>Evil Shuffle</song>
+    </person>
+</bands>
