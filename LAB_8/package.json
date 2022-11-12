@@ -1,0 +1,16 @@
+{
+  "name": "lab_8",
+  "version": "1.0.0",
+  "description": "",
+  "main": "80-00.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "multiparty": "^4.2.3",
+    "xml2js": "^0.4.23",
+    "xmlbuilder": "^15.1.1"
+  }
+}
