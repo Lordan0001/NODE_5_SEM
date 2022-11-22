@@ -19,13 +19,14 @@ let http_handler = (req, res) => {
             res.end(`<h1>KeepAliveTimeout: ${server.keepAliveTimeout}</h1>`);
         } else {
             server.keepAliveTimeout = +url.parse(req.url, true).query.set;
+           // console.log(server.keepAliveTimeout +"------this");
             res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
             res.end(`<h1>New value of KeepAliveTimeout: ${server.keepAliveTimeout}</h1>`);
         }
     }
 
     if(url.parse(req.url).pathname === '/headers') {
-        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8 ','TRIAL':3});
+        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8 ','VLAD':3});
         res.end(`<h2>${JSON.stringify(req.headers)}</h2>`);
     }
 
@@ -84,13 +85,14 @@ let http_handler = (req, res) => {
         req.on('end', () => {
             console.log('request.on(end) = ', buf.length)
         });
+
         res.end('1');
     }
 
     if(url.parse(req.url).pathname === '/resp-status') {
         if((x = +url.parse(req.url, true).query.code) && (y = url.parse(req.url, true).query.mess))  {
             res.writeHead(x,y, {'Content-Type': 'text/html; charset=utf-8'});
-            res.end();
+            res.end();////////////////////////////////
         }
     }
 
@@ -187,6 +189,8 @@ let http_handler = (req, res) => {
                 '</form>');
         }
     }
+
+
 };
 
 let conn = 0;
