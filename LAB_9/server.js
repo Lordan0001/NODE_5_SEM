@@ -33,6 +33,10 @@ let http_handler=(req,res)=>
 		//1 задание
         if(url.parse(req.url).pathname === '/Inform'){
 			res.writeHead(200,{'Content-Type': 'text/html;charset=utf-8'});
+			console.log('http.request: statusCode: ',res.statusCode);
+			console.log('http.request: statusMessage: ',res.statusMessage);
+			console.log('http.request: socket.remoteAddress: ',res.socket.remoteAddress);
+			console.log('http.request: socket.remotePort: ',res.socket.remotePort);
 			res.end("1 Task");
 		}
 		
