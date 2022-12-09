@@ -20,7 +20,7 @@ wsserver.on('connection', (ws) => {
     let lastMessage = ';';
     ws.on('message', message => {
         console.log(`${message}`);
-        lastMessage = message.slice(-1);
+        lastMessage = parseInt(message.toString().substring("10-01-client: ".length));//message.slice(-1);
     });
     setInterval(() => { ws.send(`10-01-server:${lastMessage}->${++k}`) }, 5000);
     setTimeout(() => { wsserver.close(console.log('wssocket close')); }, 25000);
