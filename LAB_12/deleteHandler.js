@@ -9,9 +9,10 @@ module.exports = (request, response) => {
     let path = url.parse(request.url).pathname;
     if(/\/backup\/\d{8}/.test(path)) {
         let flag = false;
+        console.log("here?")
         fs.readdir('./backup', (err, files) => {
             for (let i = 0; i < files.length; i++) {
-                if (files[i].match(/\d{8}/)[0] > Number(path.match(/\d+/))) {
+                if (files[i].match(/\d{8}/)[0] < Number(path.match(/\d+/))) {
                     flag = true;
                     fs.unlink(`./backup/${files[i]}`, (e) => {
                         if (e) {
@@ -25,6 +26,7 @@ module.exports = (request, response) => {
                 }
             }
             if (!flag) {
+             
                 errorHandler(request, response, 3, 'Нет файлов');
             }
         });
@@ -32,6 +34,7 @@ module.exports = (request, response) => {
     else if(/\/\d+/.test(path)) {
         let fileJSON = JSON.parse(readFile());
         let id = Number(path.match(/\d+/)[0]);
+        console.log("here")
         for (let i = 0; i < fileJSON.length; i++) {
             if (fileJSON[i].id === id){
                 response.setHeader('Content-Type', 'application/json');

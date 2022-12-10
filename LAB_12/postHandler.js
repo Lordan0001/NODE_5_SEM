@@ -5,6 +5,8 @@ const errHandler = require('./errorHandler');
 const readFile = require('./readFile');
 const pathToFile = './file/StudentList.json';
 
+
+
 module.exports = (request, response) => {
     let path = url.parse(request.url).pathname;
     if(path === '/') {
@@ -40,30 +42,36 @@ module.exports = (request, response) => {
             });
     }
     else if(path === '/backup') {
-        let date = new Date();
-        let month = date.getMonth() + 1;
-        if(Number(month) < 10)
-        {
-            month = '0' + month;
-        }
-        let day = date.getDate()
-        if(Number(day) < 10)
-        {
-            day = '0' + day;
-        }
-        fs.copyFile(pathToFile, `./backup/${date.getFullYear()}${month}${day}${date.getHours()}${date.getMinutes()}_StudentList.json`, (err) => {
-            if (err) {
-                console.log('Error');
-                errHandler(request, response, err.code, err.message);
-            }
-            else {
-                console.log('Копия была создана');
-                response.end('Копия была создана');
-            }
-        });
+        setTimeout(CopyMyFile, 2000);
+        response.end('Копия была создана');
     }
     else{
         response.writeHead(404, {'Content-Type': 'application/json; charset=utf-8'});
         response.end(`error 404`);
     }
 };
+
+
+function CopyMyFile(request,response){
+    let date = new Date();
+    let month = date.getMonth() + 1;
+    if(Number(month) < 10)
+    {
+        month = '0' + month;
+    }
+     let day = date.getDate()
+    if(Number(day) < 10)
+    {
+        day = '0' + day;
+    }
+    fs.copyFile(pathToFile, `./backup/${date.getFullYear()}${month}${day}${date.getHours()}${date.getMinutes()}_StudentList.json`, (err) => {
+        if (err) {
+            console.log('Error');
+            errHandler(request, response, err.code, err.message);
+        }
+        else {
+            console.log('Копия была создана');
+          
+        }
+    });
+}
