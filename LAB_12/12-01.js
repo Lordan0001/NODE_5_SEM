@@ -24,7 +24,7 @@ fs.watch(pathToFile, {encoding: 'buffer'}, (eventType, filename) => {
     if(eventType === 'change') {
         wss.clients.forEach((client) => {
             if (client.readyState === websocket.OPEN) {
-                client.send(`Файл ${filename} был изменен`);
+                client.send(`File ${filename} has been changed`);
             }
         });
     }

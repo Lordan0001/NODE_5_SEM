@@ -30,20 +30,20 @@ module.exports = (request, response) => {
                             errHandler(request, response, e.code, e.message);
                         }
                         else {
-                            console.log('Добавлен студент');
+                            console.log('add student');
                             response.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
                             response.end(JSON.stringify(JSON.parse(body)));
                         }
                     });
                 }
                 else {
-                    errHandler(request, response, 2, `Студент с id  ${JSON.parse(body).id} не существует`);
+                    errHandler(request, response, 2, `student with id ${JSON.parse(body).id} already exists`);
                 }
             });
     }
     else if(path === '/backup') {
         setTimeout(CopyMyFile, 2000);
-        response.end('Копия была создана');
+        response.end('backup created!');
     }
     else{
         response.writeHead(404, {'Content-Type': 'application/json; charset=utf-8'});
@@ -70,7 +70,7 @@ function CopyMyFile(request,response){
             errHandler(request, response, err.code, err.message);
         }
         else {
-            console.log('Копия была создана');
+            console.log('backup created!');
           
         }
     });

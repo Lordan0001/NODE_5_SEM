@@ -22,7 +22,7 @@ module.exports = (request, response) => {
                 }
             });
             if(!response.hasHeader('Content-Type')) {
-                errorHandler(request, response, 1, `Студент с id ${id} не существует`);
+                errorHandler(request, response, 1, `Student with id ${id} does not exist`);
             }
             response.end();
             break;

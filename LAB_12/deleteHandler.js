@@ -19,15 +19,15 @@ module.exports = (request, response) => {
                             console.log('Error');
                             errorHandler(request, response, e.code, e.message);
                         } else {
-                            console.log('Ok');
-                            response.end('Ok');
+                            console.log('Success');
+                            response.end('Success');
                         }
                     });
                 }
             }
             if (!flag) {
              
-                errorHandler(request, response, 3, 'Нет файлов');
+                errorHandler(request, response, 3, 'file not found');
             }
         });
     }
@@ -43,7 +43,7 @@ module.exports = (request, response) => {
                 fileJSON = fileJSON.filter(function(x) {
                     return x !== null;
                 });
-                console.log('Студент удален');
+                console.log('Student info deleted!');
             }
         }
         if(!response.hasHeader('Content-Type')) {

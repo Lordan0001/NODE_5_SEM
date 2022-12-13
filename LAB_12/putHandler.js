@@ -31,7 +31,7 @@ module.exports = (request, response) => {
                         }
                         else {
                             flag = true;
-                            console.log('Cтудент был изменен');
+                            console.log('Student info updated');
                             response.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
                             response.end(JSON.stringify(JSON.parse(body)));
                         }
@@ -41,7 +41,7 @@ module.exports = (request, response) => {
             }
             }
             else {
-                errHandler(request, response, 1, `Студент с id ${JSON.parse(body).id} не существует`);
+                errHandler(request, response, 1, `student with id ${JSON.parse(body).id} does not exist`);
             }
         });
     }
