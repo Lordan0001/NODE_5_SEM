@@ -9,10 +9,10 @@ let buffer = new Buffer.alloc(4);
 client.connect(PORT, HOST, () => {
     console.log(`Client connected: ${client.remoteAddress}:${client.remotePort}`);
 
-    let X = 1;
+    let X = 5;
 
     let writer = setInterval(() => {
-        client.write((buffer.writeInt32LE(X++, 0), buffer));
+        client.write((buffer.writeInt32LE(X, 0), buffer));
     }, 1000);
 
     setTimeout(() => {

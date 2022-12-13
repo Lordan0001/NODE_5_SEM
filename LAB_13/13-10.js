@@ -11,7 +11,7 @@ client.on('message', (msg, info) => {
         client.close();
     });
 
-client.send('Hi', PORT, 'localhost', (err) => {
+client.send('Hello there', PORT, 'localhost', (err) => {
     if (err) client.close();
     else console.log('Sended');
 });

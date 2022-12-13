@@ -12,7 +12,7 @@
 
 using namespace std;
 
-//Для демонстрации потери сообщений закомментить recvfrom
+//Для демонстрации потери сообщений закомментить recvfrom -- неа
 
 int main()
 {
@@ -38,7 +38,7 @@ int main()
         char ibuf[50] = "server: принято ";
         int  libuf = 0, lobuf = 0;
 
-        string obuf = "Hi";
+        string obuf = "General kenobi";
 
         if ((libuf = sendto(cC, obuf.c_str(), obuf.length() + 1, NULL,
             (SOCKADDR*)&serv, sizeof(serv))) == SOCKET_ERROR) {
@@ -49,7 +49,7 @@ int main()
             throw  SetErrorMsgText("recvfrom:", WSAGetLastError());
         }
 
-        cout << ibuf << endl;
+        cout << ibuf << endl; //это мешает потере дэбич
         
         
 
