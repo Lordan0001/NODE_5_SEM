@@ -207,10 +207,11 @@ class DB {
                 .query('DELETE FROM AUDITORIUM WHERE AUDITORIUM = @auditorium');
         });
     }
-//full cringe 2 tasks down here, u welcome to fix this shit :)
+
     facultyPulpitsJoin(code){
         return this.connectionPool.then(pool => {
-            code = 'ИДиП';
+          //  code = 'ИДиП';
+          code = decodeURI(code);
             console.log(code);
             return pool.request()
             .input('code', sql.NVarChar, code)
@@ -220,7 +221,8 @@ class DB {
 
     auditoriumtypesAuditoriumsJoin(code){
         return this.connectionPool.then(pool => {
-            code = 'ЛК';
+           // code = 'ЛК';
+           code = decodeURI(code);
             console.log(code);
             return pool.request()
             .input('code', sql.NVarChar, code)

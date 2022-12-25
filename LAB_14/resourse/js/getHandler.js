@@ -2,12 +2,13 @@ const url = require('url');
 const http = require('http');
 const fs = require('fs');
 
-const Db = require('./db')
+const Db = require('./db');
+const { decode } = require('punycode');
 let DB = new Db();
 module.exports = (req, res) => {
     let path = url.parse(req.url).pathname;
     let path_params = path.split('/');
-
+    console.log(decodeURI(path));
 
     switch(true)
     {
@@ -63,9 +64,10 @@ module.exports = (req, res) => {
 
 //refactor  1
         //case path == '/api/faculty/xyz/pulpits': 
-       // case path ==  '^\/api\/faculty\/[a-zA-z0-9]+\/pulpits$':
+        case RegExp('^\/api\/faculty\/[a-zA-z0-9а-яА-Я]+\/pulpits$').test(decodeURI(path)):
        // /api/faculty/ИДиП/pulpits
-       case path == '/api/faculty/%D0%98%D0%94%D0%B8%D0%9F/pulpits':
+    
+      // case path == '/api/faculty/%D0%98%D0%94%D0%B8%D0%9F/pulpits':
         DB.facultyPulpitsJoin(path_params[3]).then(records => {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
@@ -74,8 +76,9 @@ module.exports = (req, res) => {
             break;
 
 //refactor  2
-case path == '/api/auditoriumtypes/%D0%9B%D0%9A/auditoriums': 
+//case path == '/api/auditoriumtypes/%D0%9B%D0%9A/auditoriums': 
 // /api/auditoriumtypes/ЛК/auditoriums
+case RegExp('^\/api\/auditoriumtypes\/[a-zA-z0-9а-яА-Я]+\/auditoriums$').test(decodeURI(path)):
 DB.auditoriumtypesAuditoriumsJoin().then(records => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
